@@ -1,5 +1,5 @@
 # RFID Methods
-This is an expansion set of classes that expands upon the [convertersystems/opc-ua-client](https://github.com/convertersystems/opc-ua-client) libraries that  are used to make communication to a OPC UA server easier inside of C#.  These classes will make OPC UA method calls to Siemens RF600 RFID readers easier to handle. 
+This is an expansion set of classes that expands upon the [convertersystems/opc-ua-client](https://github.com/convertersystems/opc-ua-client) libraries that  are used to make communication to an OPC UA server easier inside of C#.  These classes will make OPC UA method calls to Siemens RF600 RFID readers easier to handle. 
 ### Currently Supported Methods
 Scan
 
