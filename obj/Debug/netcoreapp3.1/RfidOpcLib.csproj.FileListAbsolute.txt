@@ -1,0 +1,9 @@
+C:\Users\Calvin\Source\Repos\EdgeConnector\RfidOpcLib\bin\Debug\netcoreapp3.1\RfidOpcLib.deps.json
+C:\Users\Calvin\Source\Repos\EdgeConnector\RfidOpcLib\bin\Debug\netcoreapp3.1\RfidOpcLib.dll
+C:\Users\Calvin\Source\Repos\EdgeConnector\RfidOpcLib\obj\Debug\netcoreapp3.1\RfidOpcLib.csprojAssemblyReference.cache
+C:\Users\Calvin\Source\Repos\EdgeConnector\RfidOpcLib\obj\Debug\netcoreapp3.1\RfidOpcLib.AssemblyInfoInputs.cache
+C:\Users\Calvin\Source\Repos\EdgeConnector\RfidOpcLib\obj\Debug\netcoreapp3.1\RfidOpcLib.AssemblyInfo.cs
+C:\Users\Calvin\Source\Repos\EdgeConnector\RfidOpcLib\bin\Debug\netcoreapp3.1\RfidOpcLib.pdb
+C:\Users\Calvin\Source\Repos\EdgeConnector\RfidOpcLib\obj\Debug\netcoreapp3.1\RfidOpcLib.csproj.CoreCompileInputs.cache
+C:\Users\Calvin\Source\Repos\EdgeConnector\RfidOpcLib\obj\Debug\netcoreapp3.1\RfidOpcLib.dll
+C:\Users\Calvin\Source\Repos\EdgeConnector\RfidOpcLib\obj\Debug\netcoreapp3.1\RfidOpcLib.pdb
