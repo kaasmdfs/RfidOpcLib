@@ -21,6 +21,7 @@ namespace RfidOpcLib
         protected readonly ICertificateStore certificateStore;
         protected readonly X509Identity x509Identity;
         protected UaTcpSessionChannel channel;
+        public bool initialized = false;
         protected string _opcAddress { get; set; }
        
         public RfidReader(string opcAddress)
@@ -75,19 +76,30 @@ namespace RfidOpcLib
                 x509Identity = new X509Identity(userCert, userKey);
             }
         }
-        public  void Start()
+        public async Task Start()
         {
-             channel = new UaTcpSessionChannel(
-              this.localDescription,
-              null,
-              new AnonymousIdentity(),
-             _opcAddress,
-              SecurityPolicyUris.None,
-              loggerFactory: null,
-              additionalTypes: new[] { typeof(ScanSettings)
-              , typeof(ScanResult), typeof(RfidScanResult),  typeof(ScanData),
-                typeof(Location),typeof(WGS84Coordinate), typeof(RfidSighting),typeof(LocalCoordinate), typeof(ScanDataEpc)
-              });
+            try
+            {
+                    channel = new UaTcpSessionChannel(
+                 this.localDescription,
+                 null,
+                 new AnonymousIdentity(),
+                _opcAddress,
+                 SecurityPolicyUris.None,
+                 loggerFactory: null,
+                 additionalTypes: new[] { typeof(ScanSettings)
+                  , typeof(ScanResult), typeof(RfidScanResult),  typeof(ScanData),
+                    typeof(Location),typeof(WGS84Coordinate), typeof(RfidSighting),typeof(LocalCoordinate), typeof(ScanDataEpc)
+                 });
+                    initialized = true;
+               // await channel.OpenAsync();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Unable to init reader at {_opcAddress}");
+            }
+           
 
         }
         public async Task<List<RfidScanResult>> Scan(double duration, int cycles)
@@ -95,8 +107,13 @@ namespace RfidOpcLib
             try
             {
                 //opening a session
-                await channel.OpenAsync();
-
+                if(channel.SessionId == null)
+                {
+                    await Start();
+                    await channel.OpenAsync();
+                }
+                   
+                
                 Console.WriteLine($"Opened session with endpoint '{channel.RemoteEndpoint.EndpointUrl}'.");
                 Console.WriteLine($"SecurityPolicy: '{channel.RemoteEndpoint.SecurityPolicyUri}'.");
                 Console.WriteLine($"SecurityMode: '{channel.RemoteEndpoint.SecurityMode}'.");
@@ -129,17 +146,19 @@ namespace RfidOpcLib
                 foreach (var res in resultArray)
                 {
                     var scanResult = (RfidScanResult)res;
-                    scanResults.Add(scanResult);
+                    if(!String.IsNullOrEmpty(scanResult.ScanData.String))
+                        scanResults.Add(scanResult);
                 }
                 Console.WriteLine($"\nClosing session '{channel.SessionId}'.");
-                await channel.CloseAsync();
+                //await channel.CloseAsync();
                 return scanResults;
             }
             catch (Exception ex)
             {
                 await channel.AbortAsync();
                 Console.WriteLine(ex.Message);
-                return null;
+                return new List<RfidScanResult>();
+               // throw;
             }
         }
     }
